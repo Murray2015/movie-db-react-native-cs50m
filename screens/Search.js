@@ -18,8 +18,11 @@ function Item({ title }) {
 }
 
 function SearchScreen({ navigation, route }) {
-  const { movieList } = route.params;
   const [textInputVal, setTextInputVal] = useState("");
+  const { movieList } = route.params;
+  const { searchedMovie } = route.params;
+  const { message } = route.params;
+  //   console.log("in search", searchedMovie, "message", message, movieList);
 
   return (
     <View style={styles.container}>
@@ -34,10 +37,12 @@ function SearchScreen({ navigation, route }) {
           renderItem={(item) => {
             return <Item title={item.item.Title} />;
           }}
-          keyExtractor={(item) => item.key}
+          keyExtractor={(item) => String(item.key)}
         />
       )}
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Movie", { searchedMovie })}
+      >
         <Text>Search!</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate("Hello")}>
