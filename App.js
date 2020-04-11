@@ -1,27 +1,13 @@
 import "react-native-gesture-handler";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import HelloScreen from "./screens/Hello";
 import SearchScreen from "./screens/Search";
+import MovieScreen from "./screens/Movie";
 
 export default function App() {
-  const [movieList, setMovieList] = useState([]);
-
-  useEffect(() => {
-    fetch("https://www.omdbapi.com/?apikey=934a3d98&s=blade")
-      .then((response) => response.json())
-      .then((json) =>
-        json.Search.map((movie, ind) => {
-          return { ...movie, key: ind };
-        })
-      )
-      .then((json) => {
-        setMovieList(json);
-      });
-  }, []);
-
   const Stack = createStackNavigator();
 
   return (
@@ -31,13 +17,9 @@ export default function App() {
           name="Hello"
           options={{ title: "Hello" }}
           component={HelloScreen}
-          initialParams={{ movieList: movieList }}
         />
-        <Stack.Screen
-          name="Search"
-          component={SearchScreen}
-          initialParams={{ movieList: movieList }}
-        />
+        <Stack.Screen name="Search" component={SearchScreen} />
+        <Stack.Screen name="Movie" component={MovieScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
