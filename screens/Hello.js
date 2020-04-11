@@ -4,8 +4,8 @@ import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 
 function HelloScreen({ navigation }) {
   const [movieList, setMovieList] = useState([]);
+  const [getThisMovie, setGetThisMovie] = useState("blade");
   const [searchedMovie, setSearchedMovie] = useState({});
-  const [stateChanged, setStateChanged] = useState(false);
 
   useEffect(() => {
     fetch("https://www.omdbapi.com/?apikey=934a3d98&s=blade")
@@ -24,17 +24,24 @@ function HelloScreen({ navigation }) {
   useEffect(() => {
     (async () => {
       const res = await fetch(
-        "https://www.omdbapi.com/?apikey=934a3d98&t=blade"
+        `https://www.omdbapi.com/?apikey=934a3d98&t=${getThisMovie}`
       );
       const data = await res.json();
       setSearchedMovie(data);
-      // console.log("Movie data for blade in useEffect: ", searchedMovie);
+      console.log(
+        "Movie data in Hello's useEffect: ",
+        searchedMovie.Title,
+        " , and getthismovie: ",
+        getThisMovie
+      );
     })();
-  }, []);
+  }, [getThisMovie]);
 
-  // console.log("in hello: ", searchedMovie, movieList);
+  console.log("in hello: ", searchedMovie, movieList, setGetThisMovie);
 
-  const message = "this is a test message";
+  function againSetGetThisMovie(movie) {
+    setGetThisMovie(movie);
+  }
 
   return (
     <View style={styles.container}>
@@ -45,7 +52,7 @@ function HelloScreen({ navigation }) {
           navigation.navigate("Search", {
             movieList,
             searchedMovie,
-            message,
+            againSetGetThisMovie,
           });
         }}
       >

@@ -4,7 +4,7 @@ import COLS from "./colorThemes";
 
 function MovieScreen({ navigation, route }) {
   const { searchedMovie } = route.params;
-  console.log("movie inside Movie: ", searchedMovie);
+  console.log("movie inside Movie: ", searchedMovie.Title);
   return (
     <View style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={style.container}>
