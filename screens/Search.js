@@ -10,7 +10,7 @@ import {
 import Constants from "expo-constants";
 import COLS from "./colorThemes";
 
-// TODO
+// TODO:
 // if nothing returned navigate to a screen saying there is nothing of that name.
 // Add "x" button to the right hand side of the search bar to clear the screen.
 
@@ -92,7 +92,7 @@ function SearchScreen({ navigation, route }) {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate("Hello")}
+        onPress={() => navigation.navigate("Home")}
       >
         <Text style={styles.text}>Home</Text>
       </TouchableOpacity>

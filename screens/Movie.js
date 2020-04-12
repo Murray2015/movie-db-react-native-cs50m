@@ -2,8 +2,9 @@ import React, { useState, useLayoutEffect } from "react";
 import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
 import COLS from "./colorThemes";
 
-// textDecoration:
+// TODO:
 // Display loading screen while fetching
+// Graph of critics reviews
 
 function MovieScreen({ navigation, route }) {
   const [searchedMovie, setSearchedMovie] = useState({});
@@ -27,7 +28,7 @@ function MovieScreen({ navigation, route }) {
         <View style={style.basicInfo}>
           <Text style={style.Text}>
             <Text style={{ fontWeight: "bold" }}>Actors:</Text>
-            {`${searchedMovie.Year}`}
+            {`${searchedMovie.Actors}`}
           </Text>
           <Text style={style.Text}>
             <Text style={{ fontWeight: "bold" }}>Director:</Text>
@@ -84,4 +85,3 @@ const style = StyleSheet.create({
 });
 
 export default MovieScreen;
-// https://coolors.co/05a8aa-b8d5b8-d7b49e-dc602e-bc412b
