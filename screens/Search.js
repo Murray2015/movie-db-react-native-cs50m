@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -11,10 +11,7 @@ import Constants from "expo-constants";
 import COLS from "./colorThemes";
 
 // TODO
-// Move useEffect state into Search component
-// Change useEffect of movie search into useLayoutEffect
 // if nothing returned navigate to a screen saying there is nothing of that name.
-// Change autocomplete state so autocomplete list updates when other things typed into search bar
 // Add "x" button to the right hand side of the search bar to clear the screen.
 
 function Item({ title, setTextInputVal }) {
@@ -28,14 +25,42 @@ function Item({ title, setTextInputVal }) {
 }
 
 function SearchScreen({ navigation, route }) {
+  const [movieList, setMovieList] = useState([]);
+  const [getThisMovie, setGetThisMovie] = useState("blade");
   const [textInputVal, setTextInputVal] = useState("");
-  const { movieList, searchedMovie, againSetGetThisMovie } = route.params;
-  console.log(
-    "in search",
-    movieList,
-    searchedMovie.Title,
-    againSetGetThisMovie
-  );
+  const [searchPressed, setSearchPressed] = useState(false);
+
+  useEffect(() => {
+    if (!textInputVal) {
+      setMovieList([]);
+    } else {
+      console.log("fetch text input: ", textInputVal);
+      fetch(`https://www.omdbapi.com/?apikey=934a3d98&s=${textInputVal}`)
+        .then((response) => response.json())
+        .then((json) => {
+          if (json.Response === "False") {
+            throw new Error(json.Error);
+          } else {
+            return json.Search.map((movie, ind) => {
+              return { ...movie, key: ind };
+            });
+          }
+        })
+        .then((data) => {
+          setMovieList(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [textInputVal]);
+
+  useEffect(() => {
+    if (searchPressed && getThisMovie) {
+      setSearchPressed(false);
+      navigation.navigate("Movie", { getThisMovie });
+    }
+  }, [getThisMovie]);
 
   return (
     <View style={styles.container}>
@@ -59,8 +84,8 @@ function SearchScreen({ navigation, route }) {
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
-          againSetGetThisMovie(textInputVal);
-          navigation.navigate("Movie", { searchedMovie });
+          setSearchPressed(true);
+          setGetThisMovie(textInputVal);
         }}
       >
         <Text style={styles.text}>Search!</Text>

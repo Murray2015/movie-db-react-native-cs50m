@@ -1,59 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
-// import { TouchableOpacity } from "react-native-gesture-handler";
+
+// TODO
+// Style homepage
+// Add tests
+// cache local data
 
 function HelloScreen({ navigation }) {
-  const [movieList, setMovieList] = useState([]);
-  const [getThisMovie, setGetThisMovie] = useState("blade");
-  const [searchedMovie, setSearchedMovie] = useState({});
-
-  useEffect(() => {
-    fetch("https://www.omdbapi.com/?apikey=934a3d98&s=blade")
-      .then((response) => response.json())
-      .then((json) =>
-        json.Search.map((movie, ind) => {
-          return { ...movie, key: ind };
-        })
-      )
-      .then((json) => {
-        setMovieList(json);
-        // console.log("movielist inside useeffect", movieList);
-      });
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      const res = await fetch(
-        `https://www.omdbapi.com/?apikey=934a3d98&t=${getThisMovie}`
-      );
-      const data = await res.json();
-      setSearchedMovie(data);
-      console.log(
-        "Movie data in Hello's useEffect: ",
-        searchedMovie.Title,
-        " , and getthismovie: ",
-        getThisMovie
-      );
-    })();
-  }, [getThisMovie]);
-
-  console.log("in hello: ", searchedMovie, movieList, setGetThisMovie);
-
-  function againSetGetThisMovie(movie) {
-    setGetThisMovie(movie);
-  }
-
   return (
     <View style={styles.container}>
       <Text>Open up App.js to start working on your app!</Text>
       <Text>Also, hi again Murray!</Text>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("Search", {
-            movieList,
-            searchedMovie,
-            againSetGetThisMovie,
-          });
+          navigation.navigate("Search");
         }}
       >
         <Text>Go to movie search!</Text>
