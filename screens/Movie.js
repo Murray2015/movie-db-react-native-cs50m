@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useState, useLayoutEffect } from "react";
 import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
 import COLS from "./colorThemes";
 
+// textDecoration:
+// Display loading screen while fetching
+
 function MovieScreen({ navigation, route }) {
-  const { searchedMovie } = route.params;
-  console.log("movie inside Movie: ", searchedMovie);
+  const [searchedMovie, setSearchedMovie] = useState({});
+  const { getThisMovie } = route.params;
+  useLayoutEffect(() => {
+    (async () => {
+      const res = await fetch(
+        `https://www.omdbapi.com/?apikey=934a3d98&t=${getThisMovie}`
+      );
+      const data = await res.json();
+      setSearchedMovie(data);
+    })();
+  }, [getThisMovie]);
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={style.container}>
