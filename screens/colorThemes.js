@@ -1,8 +1,9 @@
 const COLS = {
-  col1: "#05a8aa",
-  col2: "#b8d5b8",
-  col3: "#d7b49e",
-  col4: "#dc602e",
-  col5: "#bc412b",
+  col1: "#eef4ed",
+  col2: "#8da9c4",
+  col3: "#134074",
+  col4: "#13315c",
+  col5: "#0b2545",
 };
 export default COLS;
+// https://coolors.co/134074-13315c-0b2545-8da9c4-eef4ed

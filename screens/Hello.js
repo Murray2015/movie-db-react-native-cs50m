@@ -12,8 +12,8 @@ function HelloScreen({ navigation }) {
       <Text style={styles.h1}>The Open Movie Database</Text>
       <Text style={styles.h2}>(www.omdbapi.com)</Text>
       <Text style={styles.p}>
-        The Open Movie Database (OMBd) is a free and open source (CC BY-NC 4.0.)
-        movie database of over 280,000 movies.
+        The Open Movie Database (OMBd) is a free and open source movie database
+        of over 280,000 movies.
       </Text>
       <TouchableOpacity
         style={styles.button}
@@ -21,7 +21,7 @@ function HelloScreen({ navigation }) {
           navigation.navigate("Search");
         }}
       >
-        <Text>Go to movie search!</Text>
+        <Text style={styles.buttonText}>Go to movie search!</Text>
       </TouchableOpacity>
     </View>
   );
@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLS.col3,
     alignItems: "center",
     justifyContent: "center",
+    color: COLS.col1,
   },
   h1: {
     fontSize: 32,
@@ -47,7 +48,7 @@ const styles = StyleSheet.create({
   h2: {
     fontSize: 24,
     textAlign: "center",
-    color: COLS.col5,
+    color: COLS.col2,
     padding: 5,
     width: "80%",
   },
@@ -55,16 +56,20 @@ const styles = StyleSheet.create({
     fontSize: 18,
     width: "80%",
     textAlign: "center",
+    color: COLS.col1,
   },
   button: {
     backgroundColor: COLS.col2,
-    color: COLS.col4,
     borderColor: COLS.col4,
-    borderWidth: 5,
+    borderWidth: 3,
     borderStyle: "solid",
-    borderRadius: 25,
-    margin: 10,
+    borderRadius: 10,
+    margin: 20,
     padding: 10,
+  },
+  buttonText: {
+    color: COLS.col1,
+    fontSize: 24,
   },
 });
 
