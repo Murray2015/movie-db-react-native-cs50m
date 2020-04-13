@@ -6,13 +6,15 @@ import {
   TextInput,
   TouchableOpacity,
   FlatList,
+  Dimensions,
 } from "react-native";
 import Constants from "expo-constants";
 import COLS from "./colorThemes";
 
-// TODO
+// TODO:
 // if nothing returned navigate to a screen saying there is nothing of that name.
-// Add "x" button to the right hand side of the search bar to clear the screen.
+
+const screenWidth = Dimensions.get("window").width;
 
 function Item({ title, setTextInputVal }) {
   return (
@@ -65,11 +67,19 @@ function SearchScreen({ navigation, route }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>What movie do you want information on?</Text>
-      <TextInput
-        value={textInputVal}
-        onChangeText={(text) => setTextInputVal(text)}
-        style={styles.textInput}
-      />
+      <View style={{ flexDirection: "row" }}>
+        <TextInput
+          value={textInputVal}
+          onChangeText={(text) => setTextInputVal(text)}
+          style={styles.textInput}
+        />
+        <TouchableOpacity
+          style={styles.xButton}
+          onPress={() => setTextInputVal("")}
+        >
+          <Text style={styles.text}>X</Text>
+        </TouchableOpacity>
+      </View>
       {movieList && (
         <FlatList
           data={movieList}
@@ -92,7 +102,7 @@ function SearchScreen({ navigation, route }) {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate("Hello")}
+        onPress={() => navigation.navigate("Home")}
       >
         <Text style={styles.text}>Home</Text>
       </TouchableOpacity>
@@ -109,18 +119,20 @@ const styles = StyleSheet.create({
   textInput: {
     marginHorizontal: 16,
     marginVertical: 8,
-    backgroundColor: COLS.col3,
-    borderWidth: 1,
+    backgroundColor: COLS.col1,
+    borderWidth: 3,
     borderStyle: "solid",
     borderColor: "black",
     padding: 5,
     textAlign: "center",
     fontSize: 24,
+    borderRadius: 10,
+    width: screenWidth * 0.9,
   },
   item: {
     backgroundColor: COLS.col1,
-    padding: 20,
-    marginVertical: 8,
+    padding: 10,
+    marginVertical: 5,
     marginHorizontal: 16,
   },
   title: {
@@ -130,12 +142,26 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 24,
     textAlign: "center",
+    color: COLS.col2,
   },
   button: {
     backgroundColor: COLS.col3,
     padding: 5,
-    borderRadius: 20,
+    borderRadius: 10,
     width: "50%",
+    marginVertical: 8,
+    fontSize: 24,
+    alignSelf: "center",
+    borderWidth: 3,
+    borderStyle: "solid",
+    borderColor: COLS.col5,
+    color: COLS.col2,
+  },
+  xButton: {
+    position: "relative",
+    left: -55,
+    padding: 5,
+    width: 30,
     marginVertical: 8,
     fontSize: 24,
     alignSelf: "center",
